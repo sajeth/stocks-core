@@ -10,6 +10,7 @@ import com.saji.stocks.redis.services.IRedis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -128,9 +129,10 @@ public class StockServiceImpl implements IStock {
     }
 
     @Override
-    public void createWatchList(String symbol) {
+    public void createWatchList(String symbol, BigDecimal priceToBook) {
         Watchlist watchlist = new Watchlist();
         watchlist.setSymbol(symbol);
+        watchlist.setPriceToBook(priceToBook);
         watchListRepository.save(watchlist);
     }
 
