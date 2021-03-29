@@ -2,8 +2,8 @@ package com.saji.stocks.core.repository.batch;
 
 import com.saji.stocks.entities.batch.DefaultParameter;
 import com.saji.stocks.entities.batch.DefaultParameterId;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BatchJobRepository extends CrudRepository<DefaultParameter, Long> {
+public interface BatchJobRepository extends JpaRepository<DefaultParameter, Long> {
 
     String GET_MOST_RECENT_EXEC_BY_JOB_AND_STATUS = "select bje.jobExecutionId "
             + "from BatchJobExecution bje where " + "bje.status = ?1" + " and bje.startTime = "

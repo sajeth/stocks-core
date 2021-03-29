@@ -19,7 +19,8 @@ public interface StockRepository extends JpaRepository<StockEntity, Long> {
     @Query("from StockEntity where symbol=?1 and logicalDeleteIn='N'")
     StockEntity findStockBySymbol(final String symbol);
 
-    @Query("from StockEntity where  logicalDeleteIn='N'")
+
+    @Query("from StockEntity where logicalDeleteIn='N'")
     List<StockEntity> findActiveStocks();
 
     @Query("from StockEntity where logicalDeleteIn='N'")

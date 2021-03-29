@@ -1,10 +1,11 @@
 package com.saji.stocks.core.services.stock;
 
-import com.saji.stocks.analysis.constants.DateConstant;
 import com.saji.stocks.core.repository.stocks.StockRepository;
-import com.saji.stocks.core.services.pojos.StockPojo;
+import com.saji.stocks.core.repository.stocks.WatchListRepository;
 import com.saji.stocks.core.services.pojos.StockTAO;
 import com.saji.stocks.entities.stock.StockEntity;
+import com.saji.stocks.entities.watchlist.Watchlist;
+import com.saji.stocks.redis.constants.DateConstant;
 import com.saji.stocks.redis.services.IRedis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,8 @@ public class StockServiceImpl implements IStock {
     IRedis iRedis;
     @Autowired
     private StockRepository stockRepository;
+    @Autowired
+    private WatchListRepository watchListRepository;
 
     @Override
     public List<String> listNewStocks() {
@@ -36,11 +39,13 @@ public class StockServiceImpl implements IStock {
     @Override
     public List<StockTAO> listAllStocks() {
         return stockRepository.findAll().stream()
-                .distinct().map(val -> {
-                    StockTAO tao = new StockTAO(val);
-                    tao.setMetaData(iRedis.getMetatData(val.getSymbol()));
-                    return tao;
-                }).collect(Collectors.toList());
+                .distinct().map(val -> new StockTAO(val)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> listGoodStocks() {
+        return watchListRepository.findGoodStocks().stream()
+                .distinct().map(val -> val.getSymbol()).collect(Collectors.toList());
     }
 
     @Override
@@ -59,11 +64,7 @@ public class StockServiceImpl implements IStock {
 
         return stockRepository.findActiveStocks().stream()
                 .filter(val -> val.getLogicalDelIn().equalsIgnoreCase("N"))
-                .map(val -> {
-                    StockTAO tao = new StockTAO(val);
-                    tao.setMetaData(iRedis.getMetatData(val.getSymbol()));
-                    return tao;
-                }).collect(Collectors.toList());
+                .map(val -> new StockTAO(val)).collect(Collectors.toList());
     }
 
     @Override
@@ -75,8 +76,8 @@ public class StockServiceImpl implements IStock {
     private List<String> findStocks(DateConstant date) {
         return listAllActiveStocks().stream()
                 .filter(val ->
-                {String symbol = val.getSymbol();
-                    return iRedis.findCache(symbol.concat(":").concat(date.name()));})
+                        iRedis.findCache(val.getSymbol().concat(":").concat(date.name()))
+                )
                 .map(StockTAO::getSymbol).collect(Collectors.toList());
 
     }
@@ -95,12 +96,17 @@ public class StockServiceImpl implements IStock {
     }
 
     @Override
+    public List<String> find3MonthlyStocks() {
+        return findStocks(DateConstant.M3);
+    }
+
+    @Override
     public void deleteStock(String symbol) {
         stockRepository.deleteStock(symbol);
     }
 
     @Override
-    public String createStock(StockPojo pojo) {
+    public String createStock(StockTAO pojo) {
         String message = "Stock is already existing";
 
         StockEntity existingEntity = stockRepository.findStockBySymbol(pojo.getSymbol());
@@ -114,14 +120,19 @@ public class StockServiceImpl implements IStock {
             stockRepository.save(newEntity);
             message = "Stock Added successfully";
         } else if (existingEntity.getLogicalDelIn().equalsIgnoreCase("Y")) {
-            existingEntity.setExchange(pojo.getExchange());
-            existingEntity.setIndustry(pojo.getIndustry());
-            existingEntity.setSector(pojo.getSector());
-            existingEntity.setSymbol(pojo.getSymbol());
-            stockRepository.updateStock(existingEntity.getStockId(), existingEntity.getExchange(), pojo.getIndustry(), pojo.getSector());
+
+            stockRepository.updateStock(existingEntity.getStockId(), pojo.getExchange(), pojo.getIndustry(), pojo.getSector());
             message = "Stock Updated successfully";
         }
         return message;
     }
+
+    @Override
+    public void createWatchList(String symbol) {
+        Watchlist watchlist = new Watchlist();
+        watchlist.setSymbol(symbol);
+        watchListRepository.save(watchlist);
+    }
+
 
 }

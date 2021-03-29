@@ -1,6 +1,5 @@
 package com.saji.stocks.core.services.stock;
 
-import com.saji.stocks.core.services.pojos.StockPojo;
 import com.saji.stocks.core.services.pojos.StockTAO;
 
 import java.util.List;
@@ -18,6 +17,8 @@ public interface IStock {
 
     List<StockTAO> listAllStocks();
 
+    List<String> listGoodStocks();
+
     List<StockTAO> listAllActiveStocks();
 
     List<String> findDailyStocks();
@@ -26,8 +27,12 @@ public interface IStock {
 
     List<String> findMonthlyStocks();
 
+    List<String> find3MonthlyStocks();
+
     void deleteStock(final String symbol);
 
-    String createStock(final StockPojo pojo);
+    String createStock(final StockTAO pojo);
+
+    void createWatchList(final String symbol);
 
 }

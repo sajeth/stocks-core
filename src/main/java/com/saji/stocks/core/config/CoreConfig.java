@@ -24,7 +24,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"com.saji.stocks.core.services"})
-@EnableJpaRepositories(basePackages = {"com.saji.stocks.core.repository"})
+@EnableJpaRepositories(basePackages = {"com.saji.stocks.core.repository.batch", "com.saji.stocks.core.repository.stocks"})
 @PropertySource("classpath:database.properties")
 public class CoreConfig {
 

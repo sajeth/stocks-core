@@ -59,6 +59,11 @@
             </exclusions>
         </dependency>
         <dependency>
+            <groupId>com.saji.stocks.candle</groupId>
+            <artifactId>stocks-candlesticks</artifactId>
+            <version>${stocks.candlesticks.version}</version>
+        </dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
@@ -79,10 +84,10 @@
             <!--                </exclusion>-->
             <!--            </exclusions>-->
         </dependency>
-        <dependency>
-            <groupId>com.saji.stocks.analysis</groupId>
-            <artifactId>stocks-analysis</artifactId>
-            <version>${stocks.analysis.version}</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.saji.stocks.analysis</groupId>-->
+        <!--            <artifactId>stocks-analysis</artifactId>-->
+        <!--            <version>${stocks.analysis.version}</version>-->
+        <!--        </dependency>-->
     </dependencies>
 </project>
