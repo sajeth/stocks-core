@@ -1,18 +1,14 @@
 package com.saji.stocks.core.services.stock;
 
 import com.saji.stocks.core.repository.stocks.StockRepository;
-import com.saji.stocks.core.repository.stocks.WatchListRepository;
 import com.saji.stocks.core.services.pojos.StockTAO;
 import com.saji.stocks.entities.stock.StockEntity;
-import com.saji.stocks.entities.watchlist.Watchlist;
 import com.saji.stocks.redis.constants.DateConstant;
 import com.saji.stocks.redis.services.IRedis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -24,30 +20,8 @@ public class StockServiceImpl implements IStock {
     IRedis iRedis;
     @Autowired
     private StockRepository stockRepository;
-    @Autowired
-    private WatchListRepository watchListRepository;
 
-    @Override
-    public List<String> listNewStocks() {
 
-        return stockRepository.listNewStocks().stream().filter(Objects::nonNull)
-                .filter(val -> iRedis.isStockNew(val.getSymbol()))
-                .map(StockEntity::getSymbol)
-                .collect(Collectors.toList());
-
-    }
-
-    @Override
-    public List<StockTAO> listAllStocks() {
-        return stockRepository.findAll().stream()
-                .distinct().map(val -> new StockTAO(val)).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<String> listGoodStocks() {
-        return watchListRepository.findGoodStocks().stream()
-                .distinct().map(val -> val.getSymbol()).collect(Collectors.toList());
-    }
 
     @Override
     public void updateStock(StockTAO stock) {
@@ -114,7 +88,7 @@ public class StockServiceImpl implements IStock {
 
         if (null == existingEntity || iRedis.isStockNew(pojo.getSymbol())) {
             StockEntity newEntity = new StockEntity();
-            newEntity.setExchange(pojo.getExchange());
+         //   newEntity.setExchange(pojo.getExchange());
             newEntity.setIndustry(pojo.getIndustry());
             newEntity.setSector(pojo.getSector());
             newEntity.setSymbol(pojo.getSymbol());
@@ -128,13 +102,6 @@ public class StockServiceImpl implements IStock {
         return message;
     }
 
-    @Override
-    public void createWatchList(String symbol, BigDecimal priceToBook) {
-        Watchlist watchlist = new Watchlist();
-        watchlist.setSymbol(symbol);
-        watchlist.setPriceToBook(priceToBook);
-        watchListRepository.save(watchlist);
-    }
 
 
 }

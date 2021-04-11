@@ -2,7 +2,6 @@ package com.saji.stocks.core.services.stock;
 
 import com.saji.stocks.core.services.pojos.StockTAO;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -13,12 +12,6 @@ public interface IStock {
     void updateStock(final StockTAO stock);
 
     StockTAO findStockBySymbol(final String symbol);
-
-    List<String> listNewStocks();
-
-    List<StockTAO> listAllStocks();
-
-    List<String> listGoodStocks();
 
     List<StockTAO> listAllActiveStocks();
 
@@ -34,6 +27,5 @@ public interface IStock {
 
     String createStock(final StockTAO pojo);
 
-    void createWatchList(final String symbol, final BigDecimal priceToBook);
 
 }

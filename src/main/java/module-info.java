@@ -18,7 +18,9 @@ module stocks.core {
     requires org.hibernate.orm.core;
     requires java.sql;
     requires com.zaxxer.hikari;
+    requires java.annotation;
     exports com.saji.stocks.core.repository.batch to stocks.batch;
+    exports com.saji.stocks.core.services.watchlist to stocks.business, stocks.sevices;
     exports com.saji.stocks.core.services.stock to stocks.batch, stocks.services, stocks.mongo;
     exports com.saji.stocks.core.services.pojos to stocks.services, stocks.batch, stocks.mongo;
     exports com.saji.stocks.core.dto to stocks.batch, stocks.services;
