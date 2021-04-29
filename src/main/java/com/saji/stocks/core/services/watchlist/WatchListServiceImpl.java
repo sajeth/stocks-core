@@ -16,11 +16,12 @@ public class WatchListServiceImpl implements IWatch {
     private WatchListRepository watchListRepository;
 
     @Override
-    public void createWatchList(String symbol, BigDecimal priceToBook) {
+    public void createWatchList(String symbol, BigDecimal priceToBook, BigDecimal priceToEarning) {
         WatchlistEntity watchlist = new WatchlistEntity();
         watchlist.setSymbol(symbol);
         watchlist.setPriceToBook(priceToBook);
         watchlist.setLogicalDelIn("N");
+        watchlist.setPriceToEarnings(priceToEarning);
         watchListRepository.save(watchlist);
     }
 
