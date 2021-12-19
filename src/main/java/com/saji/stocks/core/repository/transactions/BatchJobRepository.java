@@ -1,7 +1,8 @@
-package com.saji.stocks.core.repository.batch;
+package com.saji.stocks.core.repository.transactions;
 
-import com.saji.stocks.entities.batch.DefaultParameter;
-import com.saji.stocks.entities.batch.DefaultParameterId;
+
+import com.saji.entities.transactions.DefaultParameter;
+import com.saji.entities.transactions.DefaultParameterId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

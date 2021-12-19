@@ -47,22 +47,22 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>com.saji.stocks.redis</groupId>
-            <artifactId>stocks-redis</artifactId>
-            <version>${stocks.redis.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.saji.stocks.analysis</groupId>
-                    <artifactId>stocks-analysis</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.saji.stocks.candle</groupId>
-            <artifactId>stocks-candlesticks</artifactId>
-            <version>${stocks.candlesticks.version}</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>com.saji.stocks.redis</groupId>-->
+        <!--            <artifactId>stocks-redis</artifactId>-->
+        <!--            <version>${stocks.redis.version}</version>-->
+        <!--            <exclusions>-->
+        <!--                <exclusion>-->
+        <!--                    <groupId>com.saji.stocks.analysis</groupId>-->
+        <!--                    <artifactId>stocks-analysis</artifactId>-->
+        <!--                </exclusion>-->
+        <!--            </exclusions>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.saji.stocks.candle</groupId>-->
+        <!--            <artifactId>stocks-candlesticks</artifactId>-->
+        <!--            <version>${stocks.candlesticks.version}</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

@@ -5,7 +5,6 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -23,8 +22,8 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"com.saji.stocks.core.services"})
-@EnableJpaRepositories(basePackages = {"com.saji.stocks.core.repository.batch", "com.saji.stocks.core.repository.watchlist", "com.saji.stocks.core.repository.years"})
+//@ComponentScan({"com.saji.stocks.core.services"})
+@EnableJpaRepositories(basePackages = {"com.saji.stocks.core.repository.transactions", "com.saji.stocks.core.repository.configurations", "com.saji.stocks.core.repository.data", "com.saji.stocks.core.repository.kite", "com.saji.stocks.core.repository"})
 @PropertySource("classpath:database.properties")
 public class CoreConfig {
 
