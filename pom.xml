@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.saji.stocks.core</groupId>
-    <artifactId>stocks-core</artifactId>
+    <artifactId>stocks-database-connector</artifactId>
     <version>3.0.0</version>
     <packaging>jar</packaging>
-    <name>stocks-core</name>
+    <name>stocks-database-connector</name>
     <parent>
         <groupId>com.saji.stocks.parent</groupId>
         <artifactId>stocks-parent</artifactId>

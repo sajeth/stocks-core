@@ -1,7 +1,7 @@
 /**
  * @author saji 06-Apr-2018
  */
-module stocks.core {
+module stocks.database.connector {
     requires transitive stocks.entities;
     requires spring.data.jpa;
     requires spring.orm;

@@ -1,1 +1,1 @@
-# stocks-core
+# stocks-database-connector
