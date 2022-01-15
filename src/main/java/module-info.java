@@ -16,9 +16,16 @@ module stocks.core {
     requires java.sql;
     requires com.zaxxer.hikari;
     requires java.annotation;
+    exports com.saji.stocks.core.config to stocks.batch, stocks.data, stocks.kite, stocks.configurations;
     exports com.saji.stocks.core.repository.transactions to stocks.batch;
-    exports com.saji.stocks.core.config to stocks.batch, stocks.services;
+    exports com.saji.stocks.core.repository.data to stocks.data;
+    exports com.saji.stocks.core.repository.kite to stocks.kite;
+    exports com.saji.stocks.core.repository.configurations to stocks.configurations;
     opens com.saji.stocks.core.config to spring.core, spring.beans, spring.context;
     opens com.saji.stocks.core.repository.transactions to spring.core, spring.data.commons;
+    opens com.saji.stocks.core.repository.configurations to spring.core, spring.data.commons;
+    opens com.saji.stocks.core.repository.kite to spring.core, spring.data.commons;
+    opens com.saji.stocks.core.repository.data to spring.core, spring.data.commons;
+
 
 }
